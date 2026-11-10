@@ -1,7 +1,8 @@
+import { View, Text, Pressable, Image, StyleSheet } from 'react-native';
 import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { colors } from '../theme';
 import { Vacante } from '../data/datos';
+
 
 type Props = { vacante: Vacante; onPress: () => void };
 
@@ -20,15 +21,22 @@ export default function VacanteCard({ vacante, onPress }: Props) {
       style={({ pressed }) => [styles.card, pressed && styles.cardPresionada]}
     >
       <View style={styles.cabecera}>
-        <View style={styles.titulos}>
-          <Text style={styles.proyecto}>{vacante.proyecto}</Text>
-          <Text style={styles.empresa}>🏢 {vacante.empresa}</Text>
-        </View>
-        <View style={[styles.badge, { backgroundColor: color }]}>
-          <Text style={styles.badgeTexto}>{vacante.modalidad}</Text>
-        </View>
-      </View>
-
+  <Image
+    source={{
+      uri: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        vacante.empresa,
+      )}&background=1E5AA8&color=fff&size=128`,
+    }}
+    style={styles.logo}
+  />
+  <View style={styles.titulos}>
+    <Text style={styles.proyecto}>{vacante.proyecto}</Text>
+    <Text style={styles.empresa}>🏢 {vacante.empresa}</Text>
+  </View>
+  <View style={[styles.badge, { backgroundColor: color }]}>
+    <Text style={styles.badgeTexto}>{vacante.modalidad}</Text>
+  </View>
+</View>
       <View style={styles.chips}>
         {vacante.tecnologias.map((tec) => (
           <View key={tec} style={styles.chip}>
@@ -62,4 +70,5 @@ const styles = StyleSheet.create({
   chip: { backgroundColor: '#E8EEF9', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 },
   chipTexto: { fontSize: 12, color: colors.primaryDark },
   ubicacion: { fontSize: 12, color: colors.muted, marginTop: 12 },
+  logo: { width: 44, height: 44, borderRadius: 22, marginRight: 10 },
 });
